@@ -1,5 +1,30 @@
 import { useState } from 'react'
 
+const AnecdoteMostVotes = ({votes, anecdotes}) => {
+    let mostVotesIndex;
+    let mostVotes;
+    if (Object.keys(votes).length > 0) {
+        mostVotesIndex = 0;
+        mostVotes = 0;
+        Object.entries(votes).forEach(([k, v]) => {
+            if (v > mostVotes) {
+                mostVotes = v;
+                mostVotesIndex = k;
+            }
+        });
+    }
+    if (mostVotes !== undefined) {
+        return (
+            <>
+                <h2>Anecdote with the most votes</h2>
+                <p>{anecdotes[mostVotesIndex]}</p>
+            </>
+        )
+    } else {
+        return null;
+    }
+
+}
 const App = () => {
     const anecdotes = [
         'If it hurts, do it more often.',
@@ -30,12 +55,14 @@ const App = () => {
 
     return (
         <>
-            <div>
-                <p>{anecdotes[selected]}</p>
-                <p>has {votes[selected] === undefined ? 0 : votes[selected]} votes</p>
-            </div>
+            <h2>Anecdote of the day</h2>
+            <br />
+            <p>{anecdotes[selected]}</p>
+            <p>has {votes[selected] === undefined ? 0 : votes[selected]} votes</p>
             <button onClick={handleClickVote}>vote</button>
             <button onClick={handleClickNext}>next anecdote</button>
+            <br/>
+            <AnecdoteMostVotes votes={votes} anecdotes={anecdotes} />
         </>
     )
 }
