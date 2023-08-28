@@ -12,6 +12,11 @@ const Course = ({course}) => {
                 ))}
                 </tbody>
             </table>
+            <p>total of {parts.reduce((p, c) => {
+                console.log('p', p);
+                console.log('c', c);
+                return c.exercises + p.exercises
+            }, 0)}</p>
         </figure>
     )
 }
