@@ -3,22 +3,31 @@ import { useState } from 'react'
 const Header = ({title}) => <h1>{title}</h1>;
 const Button = ({text, handleClick }) => <button onClick={handleClick}>{text}</button>;
 
-const StatisticLine = ({text, value}) => <p>{text} {value}</p>;
+const StatisticLine = ({text, value}) => (
+    <tr>
+        <td>{text}</td><td>{value}</td>
+    </tr>
+    );
+
 const Statistics = ({good, neutral, bad}) => {
     const all = good + neutral + bad;
 
     if (good || neutral || bad) {
         return (
-            <>
-                <h2>statistics</h2>
+            <figure>
+                <figcaption>statistics</figcaption>
                 <br/>
-                <StatisticLine text={'good'} value={good} />
-                <StatisticLine text={'neutral'} value={neutral} />
-                <StatisticLine text={'bad'} value={bad} />
-                <StatisticLine text={'all'} value={all} />
-                <StatisticLine text={'average'} value={all > 0 ? (good -bad) / all : 0} />
-                <p>positive {all > 0 ? (good / all) * 100 : 0} %</p>
-            </>
+                <table>
+                    <tbody>
+                        <StatisticLine text={'good'} value={good} />
+                        <StatisticLine text={'neutral'} value={neutral} />
+                        <StatisticLine text={'bad'} value={bad} />
+                        <StatisticLine text={'all'} value={all} />
+                        <StatisticLine text={'average'} value={all > 0 ? (good -bad) / all : 0} />
+                        <tr><td>positive</td><td>{all > 0 ? (good / all) * 100 : 0} %</td></tr>
+                    </tbody>
+                </table>
+            </figure>
         )
     } else {
         return <p>No feedback given</p>
