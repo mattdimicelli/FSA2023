@@ -4,18 +4,24 @@ const Header = ({title}) => <h1>{title}</h1>;
 const Button = ({text, handleClick }) => <button onClick={handleClick}>{text}</button>;
 const Statistics = ({good, neutral, bad}) => {
     const all = good + neutral + bad;
-    return (
-        <>
-            <h2>statistics</h2>
-            <br/>
-            <p>good {good}</p>
-            <p>neutral {neutral}</p>
-            <p>bad {bad}</p>
-            <p>all {all}</p>
-            <p>average {all > 0 ? (good -bad) / all : 0}</p>
-            <p>positive {all > 0 ? (good / all) * 100 : 0} %</p>
-        </>
-    )
+
+    if (good || neutral || bad) {
+        return (
+            <>
+                <h2>statistics</h2>
+                <br/>
+                <p>good {good}</p>
+                <p>neutral {neutral}</p>
+                <p>bad {bad}</p>
+                <p>all {all}</p>
+                <p>average {all > 0 ? (good -bad) / all : 0}</p>
+                <p>positive {all > 0 ? (good / all) * 100 : 0} %</p>
+            </>
+        )
+    } else {
+        return <p>No feedback given</p>
+    }
+
 }
 
 
