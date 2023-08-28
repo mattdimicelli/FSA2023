@@ -2,15 +2,22 @@ import { useState } from 'react'
 
 const Header = ({title}) => <h1>{title}</h1>;
 const Button = ({text, handleClick }) => <button onClick={handleClick}>{text}</button>;
-    const Stats = ({good, neutral, bad}) => (
-        <>
-            <h2>statistics</h2>
-            <br/>
-            <p>good {good}</p>
-            <p>neutral {neutral}</p>
-            <p>bad {bad}</p>
-        </>
-    )
+    const Stats = ({good, neutral, bad}) => {
+        const all = good + neutral + bad;
+        return (
+            <>
+                <h2>statistics</h2>
+                <br/>
+                <p>good {good}</p>
+                <p>neutral {neutral}</p>
+                <p>bad {bad}</p>
+                <p>all {all}</p>
+                <p>average {(good -bad) / all}</p>
+                <p>positive {(good / all) * 100} %</p>
+            </>
+        )
+    }
+
 
 const App = () => {
     // save clicks of each button to its own state
