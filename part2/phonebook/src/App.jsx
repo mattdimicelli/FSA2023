@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Filter from './Filter';
+import PhonebookEntryForm from './PhonebookEntryForm';
+import PhonebookEntries from './PhonebookEntries';
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -27,36 +30,18 @@ const App = () => {
     return (
         <div>
             <h1>Phonebook</h1>
-            <h2 style={{display: 'inline-block', marginRight: '1rem', marginBottom: '1rem'}}>Filter by name:</h2>
-            <label>Name<input onChange={handleChangeFilter} /></label>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    name: <input value={newName} onChange={(e) => setNewName(e.currentTarget.value)} />
-                </div>
-                <div>
-                    number: <input value={newNumber} onChange={(e) => setNewNumber(e.currentTarget.value)} />
-                </div>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-            </form>
+            <Filter handleChangeFilter={handleChangeFilter}></Filter>
+
+            <PhonebookEntryForm
+                handleSubmit={handleSubmit}
+                newName={newName}
+                newNumber={newNumber}
+                setNewName={setNewName}
+                setNewNumber={setNewNumber}
+            />
+
             <h2>Numbers</h2>
-            <table>
-                <tbody>
-                    {persons.map(person => {
-                        if (person.name.toLowerCase().includes(filter)) {
-                            return (
-                                <tr key={person.name}>
-                                    <td>{person.name}</td>
-                                    <td>{person.number}</td>
-                                </tr>
-                            )
-                        } else {
-                            return null
-                        }
-                    })}
-                </tbody>
-            </table>
+            <PhonebookEntries persons={persons} filter={filter} />
         </div>
     )
 }
