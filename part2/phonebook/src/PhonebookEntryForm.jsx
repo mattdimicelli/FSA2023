@@ -3,7 +3,7 @@ import ajaxService from '../services/ajax_service.js';
 
 const { createEntry, updateEntry } = ajaxService;
 
-const PhonebookEntryForm = ({persons, setPersons}) => {
+const PhonebookEntryForm = ({persons, setPersons, setNotification}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('');
 
@@ -12,7 +12,11 @@ const PhonebookEntryForm = ({persons, setPersons}) => {
         const existingEntry = persons.find(person => person.name === newName);
         if(existingEntry === undefined) {
             createEntry({ name: newName, number: newNumber })
-                .then(data => setPersons(persons.concat(data)))
+                .then(data => {
+                    setPersons(persons.concat(data));
+                    setNotification(`Added ${newName}`);
+                    setTimeout(() => setNotification(undefined), 4000);
+                })
                 .catch(err => {
                     alert('Server error.  Unable to create new entry');
                     console.error(err);
