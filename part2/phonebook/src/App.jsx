@@ -25,7 +25,7 @@ const App = () => {
             <PhonebookEntryForm setPersons={setPersons} persons={persons} />
 
             <h2>Numbers</h2>
-            <PhonebookEntries persons={persons} filter={filter} />
+            <PhonebookEntries persons={persons} filter={filter} setPersons={setPersons} />
         </div>
     )
 }

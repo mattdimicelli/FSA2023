@@ -1,5 +1,7 @@
 import {useState} from "react";
-import { createEntry } from '../services/ajax_service.jsx';
+import ajaxService from '../services/ajax_service.js';
+
+const { createEntry } = ajaxService;
 
 const PhonebookEntryForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
