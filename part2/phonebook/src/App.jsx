@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Filter from './Filter';
-import PhonebookEntryForm from './PhonebookEntryForm';
-import PhonebookEntries from './PhonebookEntries';
+import PhonebookEntryForm from './PhonebookEntryForm.jsx';
+import PhonebookEntries from './PhonebookEntries.jsx';
 
 const App = () => {
     const [persons, setPersons] = useState([]);

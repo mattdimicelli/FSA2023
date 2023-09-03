@@ -1,5 +1,5 @@
 import {useState} from "react";
-import axios from "axios";
+import { createEntry } from '../services/ajax_service.jsx';
 
 const PhonebookEntryForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -8,8 +8,8 @@ const PhonebookEntryForm = ({persons, setPersons}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(persons.find(person => person.name === newName) === undefined) {
-            axios.post('http://localhost:3001/persons', { name: newName, number: newNumber })
-                .then(res => setPersons(persons.concat(res.data)))
+            createEntry({ name: newName, number: newNumber })
+                .then(data => setPersons(persons.concat(data)))
                 .catch(err => {
                     alert('Server error.  Unable to create new entry');
                     console.error(err);
