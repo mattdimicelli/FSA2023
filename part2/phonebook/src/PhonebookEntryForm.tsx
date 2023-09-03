@@ -1,4 +1,5 @@
 import {useState} from "react";
+import axios from "axios";
 
 const PhonebookEntryForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -7,7 +8,12 @@ const PhonebookEntryForm = ({persons, setPersons}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(persons.find(person => person.name === newName) === undefined) {
-            setPersons(persons.concat({ name: newName, number: newNumber }));
+            axios.post('http://localhost:3001/persons', { name: newName, number: newNumber })
+                .then(res => setPersons(persons.concat(res.data)))
+                .catch(err => {
+                    alert('Server error.  Unable to create new entry');
+                    console.error(err);
+                });
         } else {
             alert(`${newName} is already in the phonebook`);
         }
