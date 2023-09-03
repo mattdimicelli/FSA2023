@@ -1,7 +1,7 @@
 import {useState} from "react";
 import ajaxService from '../services/ajax_service.js';
 
-const { createEntry } = ajaxService;
+const { createEntry, updateEntry } = ajaxService;
 
 const PhonebookEntryForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -9,7 +9,8 @@ const PhonebookEntryForm = ({persons, setPersons}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(persons.find(person => person.name === newName) === undefined) {
+        const existingEntry = persons.find(person => person.name === newName);
+        if(existingEntry === undefined) {
             createEntry({ name: newName, number: newNumber })
                 .then(data => setPersons(persons.concat(data)))
                 .catch(err => {
@@ -17,7 +18,14 @@ const PhonebookEntryForm = ({persons, setPersons}) => {
                     console.error(err);
                 });
         } else {
-            alert(`${newName} is already in the phonebook`);
+            if(confirm(`${newName} is already in the phonebook.  Replace ${existingEntry.number} with ${newNumber}?`)){
+                updateEntry({...existingEntry, number: newNumber})
+                    .then(data => setPersons(persons.concat(data)))
+                    .catch(err => {
+                        alert('Server error.  Unable to create new entry');
+                        console.error(err);
+                    });
+            }
         }
         setNewName('');
         setNewNumber('');
