@@ -3,7 +3,7 @@ import ajaxService from '../services/ajax_service.js';
 
 const { createEntry, updateEntry } = ajaxService;
 
-const PhonebookEntryForm = ({persons, setPersons, setNotification}) => {
+const PhonebookEntryForm = ({ persons, setPersons, setNotification, setError }) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('');
 
@@ -18,15 +18,17 @@ const PhonebookEntryForm = ({persons, setPersons, setNotification}) => {
                     setTimeout(() => setNotification(undefined), 4000);
                 })
                 .catch(err => {
-                    alert('Server error.  Unable to create new entry');
+                    setError('Server error.  Unable to create new entry');
+                    setTimeout(() => setError(undefined), 4000);
                     console.error(err);
                 });
         } else {
             if(confirm(`${newName} is already in the phonebook.  Replace ${existingEntry.number} with ${newNumber}?`)){
                 updateEntry({...existingEntry, number: newNumber})
-                    .then(data => setPersons(persons.concat(data)))
+                    .then(data => setPersons(persons.filter(p => p !== existingEntry).concat(data)))
                     .catch(err => {
-                        alert('Server error.  Unable to create new entry');
+                        setError('Server error.  Unable to create new entry');
+                        setTimeout(() => setError(undefined), 4000);
                         console.error(err);
                     });
             }
