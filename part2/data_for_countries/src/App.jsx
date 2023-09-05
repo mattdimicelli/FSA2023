@@ -26,7 +26,10 @@ function App() {
             <ul>
                 {
                     filteredCountries.map(country => (
-                        <li key={country.name.common}>{country.name.common}</li>
+                        <li key={country.name.common}>
+                            <span>{country.name.common}</span>
+                            <button onClick={() => handleClick(country.name.common)}>show</button>
+                        </li>
                     ))
                 }
             </ul>
@@ -45,6 +48,8 @@ function App() {
             setFilteredCountries(allCountries.filter(c => c.name.common.toLowerCase().includes(e.currentTarget.value.toLowerCase()) || c.name.official.toLowerCase().includes(e.currentTarget.value.toLowerCase())));
         }
     }
+
+    const handleClick = (countryName) => setFilteredCountries([allCountries.find(c => c.name.common === countryName)]);
 
     return (
         <>
