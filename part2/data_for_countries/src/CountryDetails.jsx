@@ -1,3 +1,4 @@
+import CurrentWeather from './CurrentWeather';
 const CountryDetails = ({ country }) => {
     const { name, capital, area, languages, flag} = country;
     return (
@@ -10,6 +11,7 @@ const CountryDetails = ({ country }) => {
                 {Object.entries(languages).map(([k,v]) => <li key={k}>{v}</li>)}
             </ul>
             <figure style={{fontSize: 150, marginTop: 40}}>{flag}</figure>
+            <CurrentWeather latlng={country.latlng} country={name.common} />
         </article>
     )
 }
