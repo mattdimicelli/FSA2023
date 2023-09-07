@@ -8,7 +8,7 @@ const CurrentWeather = ({ latlng, country }) => {
 
     useEffect(() => {
         axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${import.meta.env.VITE_API_KEY}`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=imperial&appid=${import.meta.env.VITE_API_KEY}`
         )
             .then(res => setWeather(res.data));
     })
@@ -17,7 +17,11 @@ const CurrentWeather = ({ latlng, country }) => {
         return (
             <>
                 <h2>Weather in {country}</h2>
-                <p>temperature - {weather.main.temp}</p>
+                <p>temperature - {weather.main.temp} °F</p>
+                <div>
+                    <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={weather.weather[0].description} />
+                </div>
+                <p>wind - {weather.wind.speed} mph</p>
             </>
         )
     } else {
