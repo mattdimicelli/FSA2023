@@ -17,7 +17,7 @@ const App = () => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3001/api/persons')
+            .get('/api/persons')
             .then(res => {
                 setPersons(res.data);
             })

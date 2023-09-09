@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:3001/api/persons';
+const URL = '/api/persons';
 
 const createEntry = (entry) => axios.post(URL, entry).then(res => res.data);
 
