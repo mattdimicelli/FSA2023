@@ -18,7 +18,7 @@ const PhonebookEntryForm = ({ persons, setPersons, setNotification, setError }) 
                     setTimeout(() => setNotification(undefined), 4000);
                 })
                 .catch(err => {
-                    setError('Server error.  Unable to create new entry');
+                    setError(err.response.data.error);
                     setTimeout(() => setError(undefined), 4000);
                     console.error(err);
                 });
@@ -27,7 +27,7 @@ const PhonebookEntryForm = ({ persons, setPersons, setNotification, setError }) 
                 updateEntry({...existingEntry, number: newNumber})
                     .then(data => setPersons(persons.filter(p => p !== existingEntry).concat(data)))
                     .catch(err => {
-                        setError('Server error.  Unable to create new entry');
+                        setError(err.response.data.error);
                         setTimeout(() => setError(undefined), 4000);
                         console.error(err);
                     });

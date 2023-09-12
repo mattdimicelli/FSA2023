@@ -7,7 +7,8 @@ const PhonebookEntries = ({persons, filter, setPersons, setError }) => {
                 deleteEntry(id)
                     .then(() => setPersons(persons.filter(person => person.id !== id)))
                     .catch(e => {
-                        setError('Unable to delete entry');
+                        // setError('Unable to delete entry');
+                        setError(e.response.data.error);
                         setTimeout(() => setError(undefined), 4000);
                         console.error(e);
                     })
